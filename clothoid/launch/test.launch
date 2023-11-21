@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="rviz_settings" default="$(find clothoid)/config/rviz/clothoid.rviz"/>
+    <arg name="clothoid_settings" default="$(find clothoid)/config/param/clothoid.yaml"/>
+
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(arg rviz_settings)"/>
+    <node pkg="clothoid" type="clothoid_node" name="clothoid" output="screen">
+        <rosparam command="load" file="$(arg clothoid_settings)"/>
+    </node>
+</launch>

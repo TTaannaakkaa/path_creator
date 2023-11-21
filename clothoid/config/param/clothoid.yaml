@@ -1,0 +1,6 @@
+hz: 1.0
+resolution: 0.01
+path_length: 5.0
+init_x: 0.0
+init_y: 0.0
+init_yaw: 180.0
