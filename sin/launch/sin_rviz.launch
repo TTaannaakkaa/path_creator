@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 <launch>
+    <arg name="rviz_settings" default="$(find sin)/config/rviz/sin.rviz"/>
     <arg name="sin_settings" default="$(find sin)/config/param/sin.yaml"/>
 
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(arg rviz_settings)"/>
     <node pkg="sin" type="sin_node" name="sin" output="screen">
         <rosparam command="load" file="$(arg sin_settings)"/>
     </node>

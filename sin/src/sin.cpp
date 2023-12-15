@@ -8,9 +8,9 @@ SinPathCreator::SinPathCreator():private_nh_("~")
     private_nh_.getParam("init_x", init_x_);
     private_nh_.getParam("init_y", init_y_);
     private_nh_.getParam("init_yaw", init_yaw_);
-    private_nh_.param("frame_id", frame_id_, std::string("map"));
+    private_nh_.param("frame_id", frame_id_, {"map"});
 
-    path_pub_ = nh_.advertise<nav_msgs::Path>("/path", 1);
+    path_pub_ = nh_.advertise<nav_msgs::Path>("/global_path", 1);
 
     init_yaw_ = init_yaw_ * M_PI / 180.0;
 }
@@ -41,11 +41,14 @@ void SinPathCreator::createPath()
         double y = current_y(x);
 
         // ROS_INFO_STREAM("x: " << x << ", y: " << y);
-        
-        double r = (x * x) + (y * y);
-        double theta = atan2(y, x);
-        pose.pose.position.x = init_x_ + r * cos(theta + init_yaw_);
-        pose.pose.position.y = init_y_ + r * sin(theta + init_yaw_);
+
+        pose.pose.position.x = init_x_ + x;
+        pose.pose.position.y = init_y_ + y;
+
+        // double r = (x * x) + (y * y);
+        // double theta = atan2(y, x);
+        // pose.pose.position.x = init_x_ + r * cos(theta + init_yaw_);
+        // pose.pose.position.y = init_y_ + r * sin(theta + init_yaw_);
         pose.pose.orientation.w = 1.0;
         path_.poses.push_back(pose);
     }
